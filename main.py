@@ -11,7 +11,7 @@ def check_file():
     C:\robots\bit_analytics_three\call_recording
     Если он есть, возвращаем ссылку на него
     """
-    path_file = "C:\\robots\\bit_analytics_three\\call_recording\\"
+    path_file = ".\\"
     for file in os.listdir(path_file):
         if file.endswith('.xlsx'):
             if not file:
@@ -101,7 +101,7 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
-    # print(check_file())
+    # main()
+    print(check_file())
     # path_file = "C:\\robots\\bit_analytics_three\\call_recording\\"
     # print(os.listdir(path_file))
