@@ -76,9 +76,10 @@ def save_schedule(manager, time_list):
     plt.ylabel('интенсивность')
     plt.plot(time_list)
     plt.grid()
-    plt.savefig(
-        f"C:\\robots\\bit_analytics_three\\call_recording\\{manager.split(' ')[0]}.png"
-    )
+    plt.show()
+    # plt.savefig(
+    #     f"C:\\robots\\bit_analytics_three\\call_recording\\{manager.split(' ')[0]}.png"
+    # )
 
 
 def main():
