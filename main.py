@@ -60,12 +60,12 @@ def create_time_list(manager: list, frame: pd.DataFrame) -> list:
             ar = [y['Дата'], y['Время разговора'], y['Время ожидания']]
             second_time = sum_time(ar)  # получаем сумму секунд
             result = (first_time - second_time)//60  # из первого времени вычитаем следующие, переводим в минуты
-            time_interval.append(result)  # добавляем минуты в масиив
+            time_interval.append([first_time, second_time, result])  # добавляем минуты в масиив
             first_time = second_time  # делаем второе время первым.
         # для посчета времени от последнего звонка до конца рабочего дня.
         if i == len(frame)-1:
             result_end = (first_time - end_time)//60
-            time_interval.append(result_end)
+            time_interval.append([first_time, end_time, result_end])
     return time_interval
 
 
@@ -97,8 +97,8 @@ def main():
         # Массив манагеров и DataRfame
         time_list = create_time_list(manager, ex)
         # Сохраняем график
-        save_schedule(manager, time_list)
-
+        # save_schedule(manager, time_list)
+        print(time_list)
 
 if __name__ == '__main__':
     main()
