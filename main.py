@@ -59,8 +59,8 @@ def create_time_list(manager: list, frame: pd.DataFrame) -> list:
             # Массив строк дат с временем из DataFrame
             ar = [y['Дата'], y['Время разговора'], y['Время ожидания']]
             second_time = sum_time(ar)  # получаем сумму секунд
-            result = (first_time - second_time)//60  # из первого времени вычитаем следующие, переводим в минуты
-            time_interval.append([first_time, second_time, result])  # добавляем минуты в масиив
+            # result = (first_time - second_time)//60  # из первого времени вычитаем следующие, переводим в минуты
+            time_interval.append([first_time, second_time])  # добавляем минуты в масиив
             first_time = second_time  # делаем второе время первым.
         # для посчета времени от последнего звонка до конца рабочего дня.
         if i == len(frame)-1:
