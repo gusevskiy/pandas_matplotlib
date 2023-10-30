@@ -1,5 +1,5 @@
 import os
-from datetime import timedelta
+from datetime import timedelta, datetime
 
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -70,7 +70,7 @@ def create_time_list(manager: list, frame: pd.DataFrame) -> list:
 
 def save_schedule(manager, time_list):
     plt.figure()
-    plt.title(manager.split(' ')[0])
+    plt.title(f"{manager.split(' ')[0]} {datetime.today().strftime('%d-%m-%Y')}")
     plt.xlabel('колличество')
     plt.ylabel('интенсивность')
     time_for_graph = []
