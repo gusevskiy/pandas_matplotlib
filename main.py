@@ -5,21 +5,19 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 
-def check_file():
+path_folder = "C:\\Users\\VGGusevsky\\Documents\\BitAnalytics\\call_recording\\"
+
+
+def check_file(path_folder):
     """
-    Проверка существованиея файла Excel
-    C:\\robots\\bit_analytics_three\\call_recording
+    Проверка существованиея файла Excel в папке
     Если он есть, возвращаем ссылку на него
     """
-    # path_file = "C:\\robots\\bit_analytics_three\\call_recording\\"
-    path_file = "C:\\Users\\VGGusevsky\\Documents\\BitAnalytics\\call_recording"
-
-    for file in os.listdir(path_file):
+    path_file_exls = ""
+    for file in os.listdir(path_folder):
         if file.endswith('.xlsx'):
-            if not file:
-                print("пусто")
-            return path_file + os.path.join(file)
-
+            path_file_exls = path_folder + os.path.join(file)
+    return path_file_exls
 
 def sum_time(timeList):
     """
@@ -70,7 +68,7 @@ def create_time_list(manager: list, frame: pd.DataFrame) -> list:
     return time_interval
 
 
-def save_schedule(manager, time_list):
+def save_schedule(manager, time_list, path_folder):
     plt.figure()
     plt.title(f"{manager.split(' ')[0]} {datetime.today().strftime('%d-%m-%Y')}")
     plt.xlabel('колличество')
@@ -80,21 +78,22 @@ def save_schedule(manager, time_list):
         time_for_graph.append((i[0]-i[1])//60)
     plt.plot(time_for_graph)
     for i, v in enumerate(time_list):
+        # Если отклонение > 20 мин. вывести текст на крафик.
         if (v[0]-v[1])//60 < -20:
             # Две переменные для отображения на графике без секунд.
             v0 = ':'.join(str(timedelta(seconds=v[0])).split(':')[:2])
             v1 = ':'.join(str(timedelta(seconds=v[1])).split(':')[:2])
-            # i+1 один для смещения текста на графике, чтоб лучше видно было.
-            plt.text(i, (v[0]-v[1])//60-10, f"{v0}-{v1}").set_rotation(75)
+            # i+1 один для смещения текста в право относительно минимальной точки на графике, чтоб лучше видно было.
+            plt.text(i, (v[0]-v[1])//60-10, f"{v0}-{v1}", fontsize=7).set_rotation(75)
     plt.grid()
     plt.savefig(
-        f"C:\\robots\\bit_analytics_three\\call_recording\\{manager.split(' ')[0]}.png"
+        f"{path_folder}\\{manager.split(' ')[0]}.png"
     )
 
 
 def main():
     # Ищем Excel
-    path_to_file = check_file()
+    path_to_file = check_file(path_folder)
     # Читаем Excel
     ex = pd.read_excel(path_to_file)
     # Заполнем пустые ячейки в DataFrame нулями 00:00:00
@@ -107,8 +106,9 @@ def main():
         # Массив манагеров и DataRfame
         time_list = create_time_list(manager, ex)
         # Сохраняем график
-        save_schedule(manager, time_list)
+        save_schedule(manager, time_list, path_folder)
         # print(time_list)
 
 if __name__ == '__main__':
     main()
+    # print(check_file(path_folder))
