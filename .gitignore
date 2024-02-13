@@ -165,3 +165,4 @@ output/
 .xml
 .xlsx
 *.swp
+*.spec
