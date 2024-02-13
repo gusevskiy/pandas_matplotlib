@@ -84,6 +84,8 @@ def save_schedule(manager, time_list, path_folder):
             v0 = ':'.join(str(timedelta(seconds=v[0])).split(':')[:2])
             v1 = ':'.join(str(timedelta(seconds=v[1])).split(':')[:2])
             # i+1 один для смещения текста в право относительно минимальной точки на графике, чтоб лучше видно было.
+            # set_rotation - наклон(вращение)
+            # fontsize - размер текста на графике
             plt.text(i, (v[0]-v[1])//60-10, f"{v0}-{v1}", fontsize=7).set_rotation(75)
     plt.grid()
     plt.savefig(
@@ -111,4 +113,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-    # print(check_file(path_folder))
